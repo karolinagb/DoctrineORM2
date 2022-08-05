@@ -5,3 +5,6 @@ return [
     'driver' => 'pdo_sqlite',
     'path' => __DIR__ . '/db.sqlite',
 ];
+
+//O benefício de não conectar orm com o componente de migrations (por exemplo para usar o mesmo arquivo de conexão)
+// é que podemos ter um projeto com os dois componentes apartados possibilitando usar ou não os dois.
