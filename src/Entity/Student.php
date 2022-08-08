@@ -17,10 +17,16 @@ class Student
     #[Id, GeneratedValue, Column]
     public int $id;
 
+    //fetch: modo como o doctrine vai buscar esse relacionamento
+        //LAZY = modo preguiçoso, só busca os alunos e se precisar busca os telefones
+            //Ajuda a não gerar querys desnecessárias, mas se eu precisar de uma informação ele gera uma nova query
+        //EAGER = modo ansioso, quando ele buscar os alunos já busca os telefones
+
     #[OneToMany(
         mappedBy: "student",
         targetEntity: Phone::class,
-        cascade: ["persist", "remove"]
+        cascade: ["persist", "remove"],
+        fetch: 'EAGER'
     )]
     private Collection $phones;
 
