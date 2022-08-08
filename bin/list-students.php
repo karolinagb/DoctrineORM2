@@ -44,6 +44,23 @@ foreach ($studentList as $student) {
 }
 
 // echo $studentRepository->count([]) . PHP_EOL;
-echo count($studentList) . PHP_EOL;
+// echo count($studentList) . PHP_EOL;
 
+//Pegando o nome completo da classe
+$studentClass = Student::class;
+//dql para contar os registros
+$dql2 = "SELECT COUNT(student) FROM $studentClass student";
+//getSingleResult = para o resultado vir mais amigável como array
+//getSingleScalarResult= resultado escalar ou valor simples do php
+var_dump($entityManager->createQuery($dql2)->getSingleScalarResult());
 
+echo PHP_EOL;
+
+// Pega a quantidade de alunos que possuem mais de 1 telefone
+$dql3 = "SELECT COUNT(student) FROM $studentClass student WHERE SIZE(student.phones) > 1";
+var_dump($entityManager->createQuery($dql3)->getSingleScalarResult());
+
+echo PHP_EOL;
+
+$dql4 = "SELECT COUNT(student) FROM $studentClass student WHERE student.phones IS EMPTY";
+var_dump($entityManager->createQuery($dql4)->getSingleScalarResult());
