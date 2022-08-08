@@ -11,9 +11,13 @@ $entityManager = EntityManagerCreator::createEntityManager();
 // $studentRepository = $entityManager->getRepository(Student::class);
 
 //DQL = Doctrine Query Language - para criar querys sem usar SQL, é bem parecido com SQL, mas ao invés de tabelas usamos entidades
-$dql = "SELECT student FROM Alura\\Doctrine\\Entity\\Student student"; //buscando todos os alunos do bd
+$dql = "SELECT student, phone, course 
+        FROM Alura\\Doctrine\\Entity\\Student student
+        LEFT JOIN Alura\\Doctrine\\Entity\\Phone phone
+        LEFT JOIN Alura\\Doctrine\\Entity\\Course course"; //buscando todos os alunos do bd
 //createQuery() = retorna uma query
 //getResult() = pega o resultado da query - transforma os dados em entidade
+// $studentList = $entityManager->getRepository(Student::class)->findAll(); 
 $studentList = $entityManager->createQuery($dql)->getResult(); 
 
 /** @var Student[] $studentList */
