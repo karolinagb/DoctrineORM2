@@ -2,6 +2,7 @@
 
 namespace Alura\Doctrine\Entity;
 
+use Alura\Doctrine\Repository\DoctrineStudentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
@@ -11,7 +12,8 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
 
-#[Entity]
+//repositoryClass = quando o doctrine buscar um repositorio de aluno, agora ele vai do tipo que criamos
+#[Entity(repositoryClass: DoctrineStudentRepository::class)]
 class Student
 {
     #[Id, GeneratedValue, Column]
@@ -35,7 +37,7 @@ class Student
 
     public function __construct(
         #[Column]
-        public readonly string $name
+        public string $name
     ) {
         $this->phones = new ArrayCollection();
         $this->courses = new ArrayCollection();

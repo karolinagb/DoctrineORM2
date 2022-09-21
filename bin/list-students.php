@@ -8,23 +8,20 @@ use Alura\Doctrine\Helper\EntityManagerCreator;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $entityManager = EntityManagerCreator::createEntityManager();
-// $studentRepository = $entityManager->getRepository(Student::class);
+$studentRepository = $entityManager->getRepository(Student::class);
 
-//DQL = Doctrine Query Language - para criar querys sem usar SQL, é bem parecido com SQL, mas ao invés de tabelas usamos entidades
-$dql = "SELECT student, phone, course 
-        FROM Alura\\Doctrine\\Entity\\Student student
-        LEFT JOIN Alura\\Doctrine\\Entity\\Phone phone
-        LEFT JOIN Alura\\Doctrine\\Entity\\Course course"; //buscando todos os alunos do bd
+$studentList = $studentRepository->studentsAndCourses();
+
 //createQuery() = retorna uma query
 //getResult() = pega o resultado da query - transforma os dados em entidade
 // $studentList = $entityManager->getRepository(Student::class)->findAll(); 
-$studentList = $entityManager->createQuery($dql)->getResult(); 
+// $studentList = $entityManager->createQuery($dql)->getResult(); 
 
 /** @var Student[] $studentList */
 // $studentList = $studentRepository->findAll();
 
 foreach ($studentList as $student) {
-    echo "ID: $student->id\nNome: $student->name";
+    echo "ID: $student->id \n Nome: $student->name";
 
     if ($student->phones()->count() > 0) {
         echo PHP_EOL;
